@@ -343,7 +343,35 @@ export function RealTimeCombatArena({
     stateRef.current.dashTimer = 0;
     stateRef.current.lastEnemyAttack = 0;
     stateRef.current.phaseTick = 0;
+    stateRef.current.eSpeed = config.enemySpeed;
   };
+
+  // Re-sync combat state when sector/config changes
+  useEffect(() => {
+    const nextEnemyHp = Math.round(config.enemyHp * 1.8);
+    setEnemyHp(nextEnemyHp);
+    setMaxEnemyHp(nextEnemyHp);
+    setAllyHp(config.allyHp ?? 0);
+    setCombatPhase("fighting");
+    setDodgeCooldown(0);
+    setAttackCooldown(0);
+    setCombatScore({ hitsLanded: 0, dodgesUsed: 0, timeElapsed: 0 });
+    stateRef.current.px = 160;
+    stateRef.current.py = 240;
+    stateRef.current.ex = 640;
+    stateRef.current.ey = 240;
+    stateRef.current.projectiles = [];
+    stateRef.current.particles = [];
+    stateRef.current.eSpeed = config.enemySpeed;
+    stateRef.current.lastEnemyAttack = 0;
+    stateRef.current.phaseTick = 0;
+    setObstacles([
+      { x: 260, y: 140, w: 44, h: 64, hp: 120, maxHp: 120 },
+      { x: 260, y: 280, w: 44, h: 64, hp: 120, maxHp: 120 },
+      { x: 500, y: 140, w: 44, h: 64, hp: 120, maxHp: 120 },
+      { x: 500, y: 280, w: 44, h: 64, hp: 120, maxHp: 120 },
+    ]);
+  }, [config.id]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -508,12 +536,12 @@ export function RealTimeCombatArena({
         st.ex = Math.max(50, Math.min(750, st.ex));
         st.ey = Math.max(50, Math.min(430, st.ey));
 
-        // Distinct Enemy Attack Patterns per Boss Type
+        // Distinct Enemy Attack Patterns per Boss Type (Scaled Progressive Difficulty)
         st.lastEnemyAttack++;
         const attackInterval =
-          config.enemyType === "stalker" ? 42 :
-          config.enemyType === "syndicate" ? 54 :
-          config.enemyType === "construct" ? 68 : 36;
+          config.enemyType === "stalker" ? 44 :
+          config.enemyType === "syndicate" ? 38 :
+          config.enemyType === "construct" ? 32 : 24;
 
         if (st.lastEnemyAttack > attackInterval) {
           st.lastEnemyAttack = 0;
@@ -522,15 +550,15 @@ export function RealTimeCombatArena({
           const aimDist = Math.hypot(aimX, aimY) || 1;
 
           if (config.enemyType === "stalker") {
-            // Rapid razor needles + leaping bite
+            // Sector 1: Baseline Hunter - Aimed needle + 2-needle spread under 50% HP
             st.projectiles.push({
               x: st.ex,
               y: st.ey,
-              vx: (aimX / aimDist) * 5.2,
-              vy: (aimY / aimDist) * 5.2,
+              vx: (aimX / aimDist) * 4.8,
+              vy: (aimY / aimDist) * 4.8,
               radius: 7,
               fromPlayer: false,
-              damage: 14,
+              damage: 12,
               color: "#ed927e",
             });
             if (enemyHp < maxEnemyHp * 0.5) {
@@ -538,77 +566,118 @@ export function RealTimeCombatArena({
               st.projectiles.push({
                 x: st.ex,
                 y: st.ey,
-                vx: ((aimX * Math.cos(spread) - aimY * Math.sin(spread)) / aimDist) * 4.4,
-                vy: ((aimX * Math.sin(spread) + aimY * Math.cos(spread)) / aimDist) * 4.4,
+                vx: ((aimX * Math.cos(spread) - aimY * Math.sin(spread)) / aimDist) * 4.2,
+                vy: ((aimX * Math.sin(spread) + aimY * Math.cos(spread)) / aimDist) * 4.2,
                 radius: 6,
                 fromPlayer: false,
-                damage: 10,
+                damage: 9,
                 color: "#f2ce68",
               });
               st.projectiles.push({
                 x: st.ex,
                 y: st.ey,
-                vx: ((aimX * Math.cos(-spread) - aimY * Math.sin(-spread)) / aimDist) * 4.4,
-                vy: ((aimX * Math.sin(-spread) + aimY * Math.cos(-spread)) / aimDist) * 4.4,
+                vx: ((aimX * Math.cos(-spread) - aimY * Math.sin(-spread)) / aimDist) * 4.2,
+                vy: ((aimX * Math.sin(-spread) + aimY * Math.cos(-spread)) / aimDist) * 4.2,
                 radius: 6,
                 fromPlayer: false,
-                damage: 10,
+                damage: 9,
                 color: "#f2ce68",
               });
             }
           } else if (config.enemyType === "syndicate") {
-            // Kinetic Heavy Cannon with Ricochet
+            // Sector 2: Heavy Enforcer - Dual ricochet kinetic rounds bouncing twice
             st.projectiles.push({
               x: st.ex,
               y: st.ey,
-              vx: (aimX / aimDist) * 4.2,
-              vy: (aimY / aimDist) * 4.2,
+              vx: (aimX / aimDist) * 5.0,
+              vy: (aimY / aimDist) * 5.0,
               radius: 11,
               fromPlayer: false,
-              damage: 22,
+              damage: 18,
               color: "#5cd6d6",
+              ricochetsLeft: 2,
+            });
+            // Flanking ricochet shell
+            const flankAngle = 0.45;
+            st.projectiles.push({
+              x: st.ex,
+              y: st.ey,
+              vx: ((aimX * Math.cos(flankAngle) - aimY * Math.sin(flankAngle)) / aimDist) * 4.6,
+              vy: ((aimX * Math.sin(flankAngle) + aimY * Math.cos(flankAngle)) / aimDist) * 4.6,
+              radius: 9,
+              fromPlayer: false,
+              damage: 14,
+              color: "#f2ce68",
               ricochetsLeft: 1,
             });
           } else if (config.enemyType === "construct") {
-            // Radial Lasers / Bullet-Hell Pulse in 8 directions
-            const rays = enemyHp < maxEnemyHp * 0.5 ? 12 : 8;
-            const baseRot = (st.phaseTick * 0.05) % (Math.PI * 2);
+            // Sector 3: Bullet-Hell Monolith - Rotating 12-to-16 ray radial laser ring
+            const rays = enemyHp < maxEnemyHp * 0.5 ? 16 : 12;
+            const baseRot = (st.phaseTick * 0.08) % (Math.PI * 2);
             for (let r = 0; r < rays; r++) {
               const theta = baseRot + (r * Math.PI * 2) / rays;
               st.projectiles.push({
                 x: st.ex,
                 y: st.ey,
-                vx: Math.cos(theta) * 3.4,
-                vy: Math.sin(theta) * 3.4,
+                vx: Math.cos(theta) * 3.8,
+                vy: Math.sin(theta) * 3.8,
                 radius: 6,
                 fromPlayer: false,
-                damage: 12,
+                damage: 15,
                 color: "#72a832",
               });
             }
-          } else if (config.enemyType === "doppelganger") {
-            // Mirrored Shadow Barrage + Quick Pulse
+            // Direct central lance aimed at player
             st.projectiles.push({
               x: st.ex,
               y: st.ey,
-              vx: (aimX / aimDist) * 5.6,
-              vy: (aimY / aimDist) * 5.6,
+              vx: (aimX / aimDist) * 6.2,
+              vy: (aimY / aimDist) * 6.2,
               radius: 8,
               fromPlayer: false,
-              damage: 18,
-              color: "#d4a736",
+              damage: 22,
+              color: "#c4f08a",
             });
-            // Fires an extra flanking shot
+          } else if (config.enemyType === "doppelganger") {
+            // Sector 4: Final Boss Shadow Reflection - Ultra fast triple stream & cross-fire
             st.projectiles.push({
               x: st.ex,
               y: st.ey,
-              vx: (-aimY / aimDist) * 4.5,
-              vy: (aimX / aimDist) * 4.5,
-              radius: 6,
+              vx: (aimX / aimDist) * 6.6,
+              vy: (aimY / aimDist) * 6.6,
+              radius: 9,
               fromPlayer: false,
-              damage: 12,
-              color: "#c4f08a",
+              damage: 24,
+              color: "#d4a736",
             });
+            // Left & Right Flanking Pincher shots
+            const pAngle = 0.32;
+            st.projectiles.push({
+              x: st.ex,
+              y: st.ey,
+              vx: ((aimX * Math.cos(pAngle) - aimY * Math.sin(pAngle)) / aimDist) * 5.8,
+              vy: ((aimX * Math.sin(pAngle) + aimY * Math.cos(pAngle)) / aimDist) * 5.8,
+              radius: 7,
+              fromPlayer: false,
+              damage: 16,
+              color: "#f2ce68",
+            });
+            st.projectiles.push({
+              x: st.ex,
+              y: st.ey,
+              vx: ((aimX * Math.cos(-pAngle) - aimY * Math.sin(-pAngle)) / aimDist) * 5.8,
+              vy: ((aimX * Math.sin(-pAngle) + aimY * Math.cos(-pAngle)) / aimDist) * 5.8,
+              radius: 7,
+              fromPlayer: false,
+              damage: 16,
+              color: "#f2ce68",
+            });
+            // Teleport or surge when damaged
+            if (enemyHp < maxEnemyHp * 0.4 && Math.random() < 0.08) {
+              spawnParticles(st.ex, st.ey, "#d4a736", 16);
+              st.ex = 100 + Math.random() * 600;
+              st.ey = 80 + Math.random() * 320;
+            }
           }
         }
 
