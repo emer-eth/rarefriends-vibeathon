@@ -21,6 +21,7 @@ import { applyActionToFriend, getTraitTier, getTraitTierLabel } from "./progress
 import { ENCOUNTERS, getRandomEncounters } from "./encounters.js";
 import { FriendPortrait } from "./FriendPortrait.js";
 import { RealTimeCombatArena, COMBAT_SCENARIOS, CombatEncounterConfig } from "./RealTimeCombatArena.js";
+import { RoadmapModal } from "./RoadmapModal.js";
 
 import "@rarefriends/friendsdk/frame.css";
 import "@rarefriends/friendsdk/world-view.css";
@@ -50,6 +51,7 @@ type ActiveView =
   | "world"
   | "intro"
   | "combat"
+  | "roadmap"
   | "profile"
   | "journal"
   | "memories"
@@ -285,6 +287,9 @@ export default function FriendSpotlightGame({ friendId, client, paused }: GameCo
             </button>
             <button type="button" className="spotlight-btn secondary small" onClick={startNewSession}>
               ⚡ Adventure
+            </button>
+            <button type="button" className="spotlight-btn secondary small" onClick={() => navigateTo("roadmap")}>
+              🗺️ Roadmap
             </button>
             <button type="button" className="spotlight-btn secondary small" onClick={() => navigateTo("profile")}>
               📖 Profile
@@ -544,6 +549,13 @@ export default function FriendSpotlightGame({ friendId, client, paused }: GameCo
               <button
                 type="button"
                 className="dossier-tab"
+                onClick={() => navigateTo("roadmap")}
+              >
+                Roadmap & Sectors
+              </button>
+              <button
+                type="button"
+                className="dossier-tab"
                 onClick={() => navigateTo("journal")}
               >
                 Journal ({friendState.journal.length})
@@ -753,6 +765,15 @@ export default function FriendSpotlightGame({ friendId, client, paused }: GameCo
             </button>
           </div>
         </GameMenu>
+      )}
+
+      {/* 10. CAMPAIGN & ECOSYSTEM ROADMAP SCREEN */}
+      {currentView === "roadmap" && (
+        <RoadmapModal
+          friendState={friendState}
+          onClose={() => navigateTo("world")}
+          onLaunchSector={sectorIdx => startCombatSession(sectorIdx)}
+        />
       )}
     </section>
   );
