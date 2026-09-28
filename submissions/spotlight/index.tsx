@@ -619,17 +619,24 @@ export default function FriendSpotlightGame({ friendId, client, paused }: GameCo
                 </ul>
               </div>
               <div className="dossier-achievements-box">
-                <h4>Unlocked Titles & Achievements</h4>
+                <h4>Unlocked Titles & Achievements ({friendState.achievements.length})</h4>
                 {friendState.achievements.length ? (
                   <div className="achievement-badges">
-                    {friendState.achievements.map((ach, i) => (
-                      <span key={i} className="achievement-badge">
-                        🏆 {ach}
-                      </span>
-                    ))}
+                    {friendState.achievements.map((ach, i) => {
+                      const isSector = ach.includes("Sector");
+                      const isLegend = ach.includes("Legend") || ach.includes("Void");
+                      return (
+                        <span
+                          key={i}
+                          className={`achievement-badge ${isSector ? "sector-badge" : isLegend ? "legend-badge" : ""}`}
+                        >
+                          {isLegend ? "👑" : isSector ? "⚔️" : "🏆"} {ach}
+                        </span>
+                      );
+                    })}
                   </div>
                 ) : (
-                  <p className="spotlight-text-secondary">Perform daring or principled acts to earn achievements.</p>
+                  <p className="spotlight-text-secondary">Conquer sectors and make defining moral decisions to earn achievements.</p>
                 )}
               </div>
             </div>

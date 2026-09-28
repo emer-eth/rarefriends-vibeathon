@@ -165,6 +165,7 @@ function checkAchievements(state: FriendPersistentState) {
   const current = new Set(state.achievements);
   const pts = state.behaviorPoints;
 
+  // Trait Mastery Achievements
   if (pts.courage >= 30 && !current.has("Heart of Iron")) {
     state.achievements.push("Heart of Iron");
   }
@@ -177,8 +178,40 @@ function checkAchievements(state: FriendPersistentState) {
   if (pts.cunning >= 30 && !current.has("Shadow Chessmaster")) {
     state.achievements.push("Shadow Chessmaster");
   }
+  if (pts.loyalty >= 30 && !current.has("Unbroken Oath")) {
+    state.achievements.push("Unbroken Oath");
+  }
+  if (pts.independence >= 30 && !current.has("Sovereign Will")) {
+    state.achievements.push("Sovereign Will");
+  }
+  if (pts.cooperation >= 30 && !current.has("Grand Peacemaker")) {
+    state.achievements.push("Grand Peacemaker");
+  }
+  if (pts.caution >= 30 && !current.has("Vigilant Guardian")) {
+    state.achievements.push("Vigilant Guardian");
+  }
+
+  // Progression & Campaign Achievements
+  if (state.totalEncountersResolved >= 1 && !current.has("Frontier Bloodied (Sector 1)")) {
+    state.achievements.push("Frontier Bloodied (Sector 1)");
+  }
+  if (state.totalEncountersResolved >= 2 && !current.has("Syndicate Breaker (Sector 2)")) {
+    state.achievements.push("Syndicate Breaker (Sector 2)");
+  }
+  if (state.totalEncountersResolved >= 3 && !current.has("Matrix Overload (Sector 3)")) {
+    state.achievements.push("Matrix Overload (Sector 3)");
+  }
+  if (state.totalEncountersResolved >= 4 && !current.has("Conqueror of the Void (Sector 4)")) {
+    state.achievements.push("Conqueror of the Void (Sector 4)");
+  }
   if (state.level >= 5 && !current.has("Seasoned Traveler")) {
     state.achievements.push("Seasoned Traveler");
+  }
+  if (state.level >= 10 && !current.has("Ascended Legend")) {
+    state.achievements.push("Ascended Legend");
+  }
+  if (state.journal.length >= 5 && !current.has("Chronicle Scribe")) {
+    state.achievements.push("Chronicle Scribe");
   }
   if (state.journal.length >= 10 && !current.has("Living Chronicle")) {
     state.achievements.push("Living Chronicle");
