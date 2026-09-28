@@ -319,26 +319,26 @@ export default function FriendSpotlightGame({ friendId, client, paused }: GameCo
 
       {/* 3. FIRST-TIME EXPERIENCE MODAL (INTRO) */}
       {currentView === "intro" && (
-        <GameMenu title="Welcome to Spotlight: Becoming" onClose={() => navigateTo("world")}>
+        <GameMenu title="Rare Friend Spotlight" onClose={() => navigateTo("world")}>
           <div className="spotlight-modal-body intro-card">
             <div className="intro-hero-visual">
               <FriendPortrait friendId={friendId} scale={6} walking={true} />
               <div className="intro-titles">
                 <h3>{friendState.characterName}</h3>
-                <span className="badge-tag">{friendState.reputationTitle} · Level {friendState.level}</span>
+                <span className="badge-tag">Level {friendState.level} · {friendState.reputationTitle}</span>
               </div>
             </div>
             <p className="intro-core-credo">
-              <strong>Control your Rare Friend in real-time combat & shape their persistent personality.</strong>
+              <strong>Fight monsters in real-time combat and guide your Friend's journey.</strong>
             </p>
             <div className="summary-metrics-grid" style={{ marginBottom: 12 }}>
               <div className="summary-metric-box">
-                <span className="metric-label">1. MOVE & FIGHT</span>
-                <span className="metric-val">WASD to Move · Space to Shoot · Shift to Dash</span>
+                <span className="metric-label">CONTROLS</span>
+                <span className="metric-val">WASD Move · Space Attack · Shift Dash</span>
               </div>
               <div className="summary-metric-box">
-                <span className="metric-label">2. MORAL CHOICES</span>
-                <span className="metric-val">Defeat foes and choose mercy, extraction, or honor</span>
+                <span className="metric-label">CHOICES</span>
+                <span className="metric-val">Defeat bosses & choose their destiny</span>
               </div>
             </div>
             <div className="intro-cta-row">
@@ -347,21 +347,21 @@ export default function FriendSpotlightGame({ friendId, client, paused }: GameCo
                 className="spotlight-btn primary large"
                 onClick={() => startCombatSession(0)}
               >
-                ⚔️ Start Real Combat Action
+                ⚔️ Play Battle
               </button>
               <button
                 type="button"
                 className="spotlight-btn secondary"
                 onClick={() => navigateTo("world")}
               >
-                🌲 Explore World Hub
+                🌲 Enter Hub
               </button>
             </div>
           </div>
         </GameMenu>
       )}
 
-      {/* 4. ENCOUNTER SCREEN (MEANINGFUL GAMEPLAY DILEMMA) */}
+      {/* 4. ENCOUNTER SCREEN */}
       {currentView === "encounter" && currentEncounter && (
         <GameMenu
           title={`${currentEncounter.locationName} · ${currentEncounter.title}`}
@@ -369,7 +369,7 @@ export default function FriendSpotlightGame({ friendId, client, paused }: GameCo
         >
           <div className="spotlight-modal-body encounter-layout">
             <div className="encounter-progress-pill">
-              Situation {currentEncounterIdx + 1} of {activeSessionEncounters.length}
+              Stage {currentEncounterIdx + 1} of {activeSessionEncounters.length}
             </div>
             <div className="encounter-situation-box">
               <p className="encounter-desc">{currentEncounter.situation}</p>
@@ -378,7 +378,7 @@ export default function FriendSpotlightGame({ friendId, client, paused }: GameCo
               )}
             </div>
 
-            <div className="encounter-prompt-label">How will you guide your Friend?</div>
+            <div className="encounter-prompt-label">Choose Action:</div>
             <div className="encounter-actions-list">
               {currentEncounter.actions.map(action => (
                 <button
@@ -402,7 +402,7 @@ export default function FriendSpotlightGame({ friendId, client, paused }: GameCo
 
       {/* 5. ENCOUNTER RESULT SCREEN */}
       {currentView === "encounter_result" && lastActionOutcome && (
-        <GameMenu title="Outcome & Character Consequence" onClose={advanceEncounter}>
+        <GameMenu title="Battle Outcome" onClose={advanceEncounter}>
           <div className="spotlight-modal-body outcome-card">
             <div className="outcome-header-banner">
               <FriendPortrait friendId={friendId} scale={4} />
@@ -413,12 +413,12 @@ export default function FriendSpotlightGame({ friendId, client, paused }: GameCo
             </div>
 
             <div className="outcome-consequence-box">
-              <strong>Consequence:</strong>
+              <strong>Result:</strong>
               <p>{lastActionOutcome.choice.immediateOutcome}</p>
             </div>
 
             <div className="outcome-behavior-deltas">
-              <span className="delta-title">Behavioral Evolution:</span>
+              <span className="delta-title">Stat Growth:</span>
               <div className="delta-tags">
                 {lastActionOutcome.behaviorSummary.map((tag, i) => (
                   <span key={i} className="delta-tag">
@@ -430,7 +430,7 @@ export default function FriendSpotlightGame({ friendId, client, paused }: GameCo
 
             {lastActionOutcome.levelUp && (
               <div className="level-up-banner">
-                🎉 LEVEL UP! Your Friend has ascended to <strong>Level {lastActionOutcome.newLevel}</strong>!
+                ★ LEVEL UP! You reached <strong>Level {lastActionOutcome.newLevel}</strong>!
               </div>
             )}
 
@@ -440,7 +440,7 @@ export default function FriendSpotlightGame({ friendId, client, paused }: GameCo
                 className="spotlight-btn primary"
                 onClick={() => startCombatSession(0)}
               >
-                ⚔️ Play Another Combat
+                ⚔️ Next Battle
               </button>
               <button
                 type="button"
@@ -448,8 +448,8 @@ export default function FriendSpotlightGame({ friendId, client, paused }: GameCo
                 onClick={advanceEncounter}
               >
                 {activeSessionEncounters.length > 0 && currentEncounterIdx + 1 < activeSessionEncounters.length
-                  ? "Next Encounter →"
-                  : "Return to World"}
+                  ? "Next Stage →"
+                  : "Back to Hub"}
               </button>
             </div>
           </div>

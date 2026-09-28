@@ -1065,7 +1065,7 @@ export function RealTimeCombatArena({
           <FriendPortrait friendId={friendId} scale={2} />
           <div className="stat-bars">
             <div className="bar-label">
-              <span>FRIEND SHIELD</span>
+              <span>PLAYER HP</span>
               <strong>{playerHp} / {maxPlayerHp}</strong>
             </div>
             <div className="bar-track">
@@ -1082,21 +1082,21 @@ export function RealTimeCombatArena({
                 type="button"
                 className={`sector-tab-btn ${config.id === sc.id ? "active" : ""}`}
                 onClick={() => onSelectSector?.(idx)}
-                title={`Switch to ${sc.title}`}
+                title={sc.title}
               >
-                Sector {sc.zoneNumber}: {sc.enemyName}
+                Stage {sc.zoneNumber}: {sc.enemyName}
               </button>
             ))}
           </div>
           <div className="control-keys-bar">
-            <span><strong>WASD</strong> Move</span> · <span><strong>SPACE / CLICK</strong> Attack</span> · <span><strong>SHIFT</strong> Dash</span>
+            <span>WASD Move · SPACE Attack · SHIFT Dash</span>
           </div>
         </div>
 
         <div className="combat-enemy-stats">
           <div className="stat-bars">
             <div className="bar-label">
-              <span>{config.enemyName}</span>
+              <span>{config.enemyName.toUpperCase()}</span>
               <strong>
                 {Math.ceil(enemyHp)} / {maxEnemyHp}
               </strong>
@@ -1126,17 +1126,17 @@ export function RealTimeCombatArena({
           type="button"
           className="spotlight-btn secondary small"
           onClick={resetBattle}
-          title="Restart this fight from full HP"
+          title="Restart this fight"
         >
-          🔄 Restart Fight (R)
+          Retry (R)
         </button>
         <button
           type="button"
           className="spotlight-btn secondary small"
           onClick={onCancel}
-          title="Return to the exploration hub"
+          title="Return to the world hub"
         >
-          🏃 Retreat to Hub
+          Exit to Hub
         </button>
       </div>
 
@@ -1144,13 +1144,10 @@ export function RealTimeCombatArena({
       {combatPhase === "victory" && (
         <div className="combat-modal-overlay">
           <div className="combat-dilemma-card">
-            <span className="victory-badge">⚔️ FOE OVERCOME!</span>
+            <span className="victory-badge">VICTORY</span>
             <h3>{config.dilemmaPrompt}</h3>
             <p className="dilemma-subtext">
-              Battle Stats: <strong>{combatScore.hitsLanded}</strong> hits landed · <strong>{combatScore.dodgesUsed}</strong> tactical dodges · <strong>{combatScore.timeElapsed}s</strong> combat duration.
-            </p>
-            <p className="dilemma-subtext">
-              Your final judgment determines your Friend's evolving personality traits:
+              Hits: <strong>{combatScore.hitsLanded}</strong> · Dodges: <strong>{combatScore.dodgesUsed}</strong> · Time: <strong>{combatScore.timeElapsed}s</strong>
             </p>
             <div className="dilemma-choices-list">
               {config.resolutionChoices.map(c => (
@@ -1165,7 +1162,7 @@ export function RealTimeCombatArena({
                     <span className="dilemma-xp">+{c.xpReward} XP</span>
                   </div>
                   <strong>{c.label}</strong>
-                  <p>{c.narrativeChoice}</p>
+                  <p>{c.immediateOutcome}</p>
                 </button>
               ))}
             </div>

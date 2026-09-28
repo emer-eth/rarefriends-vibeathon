@@ -25,99 +25,97 @@ export function RoadmapModal({
   const sectors = [
     {
       index: 0,
-      title: "Sector 1: Crimson Ridge Ambush",
+      title: "Stage 1: Crimson Ridge",
       location: "Crimson Gorge",
-      boss: "Razor Stalker Alpha",
-      threatLevel: "Standard",
+      boss: "Razor Stalker",
+      threatLevel: "Normal",
       recommendedLevel: 1,
-      mechanic: "Fast needle lunges, courier rescue",
-      reward: "+45 XP · Compassion or Ruthlessness Trait Shift",
+      mechanic: "Needle lunges & fast attacks",
+      reward: "+45 XP · Trait Evolution",
       completed: friendState.totalEncountersResolved >= 1 || friendState.level > 1,
       unlocked: true,
-      lore: "A treacherous crimson ravine plagued by feral bio-mechanical stalkers hunting frontier supply couriers.",
+      lore: "A crimson ravine plagued by stalkers hunting frontier supply couriers.",
     },
     {
       index: 1,
-      title: "Sector 2: Rust Syndicate Outpost",
-      location: "Rust Syndicate Outpost",
+      title: "Stage 2: Rust Outpost",
+      location: "Rust Outpost",
       boss: "Enforcer Kaelen",
-      threatLevel: "Advanced",
+      threatLevel: "Hard",
       recommendedLevel: 2,
-      mechanic: "Kinetic shield turret with ricochet wall bounces",
-      reward: "+55 XP · Cunning or Honor Trait Shift",
+      mechanic: "Shield turret & ricochet wall shots",
+      reward: "+55 XP · Trait Evolution",
       completed: friendState.totalEncountersResolved >= 2 || friendState.level >= 3,
       unlocked: friendState.level >= 1,
-      lore: "A fortified perimeter held by cybernetic debt enforcers broadcasting syndicate extortion frequencies.",
+      lore: "A fortified perimeter held by cybernetic enforcers.",
     },
     {
       index: 2,
-      title: "Sector 3: Ancient Monolith Overload",
+      title: "Stage 3: Ancient Monolith",
       location: "Verdant Core Ruins",
-      boss: "Gorgon Core Construct",
+      boss: "Gorgon Core",
       threatLevel: "Extreme",
       recommendedLevel: 3,
-      mechanic: "Rotating octagram radial lasers & bullet-hell barrages",
-      reward: "+65 XP · Cooperation or Sovereign Independence Shift",
+      mechanic: "Rotating radial lasers & bullet barrage",
+      reward: "+65 XP · Trait Evolution",
       completed: friendState.totalEncountersResolved >= 3 || friendState.level >= 4,
       unlocked: friendState.level >= 2,
-      lore: "A pulsating precursor antimatter power matrix on the verge of catastrophic meltdown.",
+      lore: "An ancient power matrix on the verge of critical meltdown.",
     },
     {
       index: 3,
-      title: "Sector 4: The Mirror of Becoming",
+      title: "Stage 4: Chamber of Echoes",
       location: "Chamber of Echoes",
       boss: "Shadow Reflection",
-      threatLevel: "Legendary",
+      threatLevel: "Boss",
       recommendedLevel: 5,
-      mechanic: "Doppelgänger mirroring your Friend's traits and speed with flanking fire",
-      reward: "+100 XP · Permanent Archetype Transcendent Mastery",
+      mechanic: "Doppelgänger mirroring your movements and fire",
+      reward: "+100 XP · Trait Mastery",
       completed: friendState.totalEncountersResolved >= 4 || friendState.level >= 5,
       unlocked: friendState.level >= 3,
-      lore: "The sacred inner sanctum where the Void reflects all moral choices back into physical manifestation.",
+      lore: "The inner sanctum where the shadow tests everything you have become.",
     },
   ];
 
   const milestones = [
     {
-      phase: "Phase 1: Genesis Spotlight (Current)",
-      status: "Live & Playable",
+      phase: "Phase 1: Spotlight (Live)",
+      status: "Playable",
       tagColor: "active",
-      timeline: "Q3 2026 · Vibe-a-thon",
+      timeline: "Current",
       features: [
-        "Real-Time 60 FPS Combat Arena with WASD movement, plasma pulses & dash dodging",
-        "4 Sector Bosses with unique AI: Needle Stalker, Ricochet Mech, Radial Monolith, Shadow Doppelgänger",
-        "Destructible tactical cover pillars absorbing live kinetic and plasma fire",
-        "8-Dimensional Persistent Behavioral Trait Engine (Courage, Caution, Compassion, Ruthlessness, etc.)",
-        "Persistent Chronicle Journal, NPC Memories, and Character Dossier",
+        "Real-Time Combat Arena (WASD, shoot, dash)",
+        "4 Boss Stages with escalating AI & attacks",
+        "Tactical cover pillars that absorb enemy shots",
+        "Persistent character leveling, traits & chronicle journal",
       ],
     },
     {
-      phase: "Phase 2: On-Chain Trait Attestation",
+      phase: "Phase 2: On-Chain Records",
       status: "In Development",
       tagColor: "upcoming",
-      timeline: "Q4 2026",
+      timeline: "Next Up",
       features: [
-        "Cryptographic soulbound trait signatures anchored directly to Rare Friend NFT token IDs",
-        "Exportable Character Dossiers & Verifiable Moral Alignments for cross-game passporting",
-        "Ecosystem Reward Pools: RF token claims triggered on sector conquest",
-        "Dynamic Rare Friend Sprite Aura Evolution based on dominant moral alignment",
+        "On-chain trait attestations linked to Friend NFT token IDs",
+        "Exportable character profiles for cross-game play",
+        "Token reward claims for clearing stages",
       ],
     },
     {
-      phase: "Phase 3: Frontier Co-Op & Raids",
+      phase: "Phase 3: Multiplayer Co-Op",
       status: "Planned",
       tagColor: "future",
-      timeline: "Q1 2027",
+      timeline: "Future",
       features: [
-        "2-Player Synchronized Co-Op: Pair your Friend with a comrade's Friend against Titan-class World Bosses",
-        "Community Frontier War: Collective sector defense influenced by player moral decisions",
-        "Community-Authored Encounters & Map Builder using FriendSDK World Presets",
+        "2-Player Co-Op boss raids",
+        "Community world events",
+        "Custom community maps & encounters",
       ],
     },
   ];
 
   return (
-    <GameMenu title="Game Roadmap & Campaign Progression" onClose={onClose}>
+    <GameMenu title="Campaign Roadmap" onClose={onClose}>
       <div className="spotlight-modal-body roadmap-layout">
         {/* Navigation Tabs */}
         <nav className="dossier-nav-tabs" style={{ marginBottom: 16 }}>
@@ -126,14 +124,14 @@ export function RoadmapModal({
             className={`dossier-tab ${activeTab === "campaign" ? "active" : ""}`}
             onClick={() => setActiveTab("campaign")}
           >
-            🗺️ Campaign Sector Roadmap
+            🗺️ Stages (1-4)
           </button>
           <button
             type="button"
             className={`dossier-tab ${activeTab === "ecosystem" ? "active" : ""}`}
             onClick={() => setActiveTab("ecosystem")}
           >
-            🚀 Project & Ecosystem Roadmap
+            🚀 Future Updates
           </button>
         </nav>
 
@@ -142,10 +140,9 @@ export function RoadmapModal({
           <div className="roadmap-campaign-view">
             <div className="roadmap-intro-banner">
               <div>
-                <h4>Frontier Sector Campaign Path</h4>
+                <h4>Campaign Stages</h4>
                 <p>
-                  Every sector challenges your Friend with a unique mechanical encounter and moral crossroad.
-                  Defeating a boss unlocks permanent behavioral evolutions.
+                  Clear each stage to level up and evolve your Friend's stats.
                 </p>
               </div>
               <div className="roadmap-progress-badge">
