@@ -10,7 +10,7 @@
 ---
 
 ## One-Sentence Summary
-A decision-driven character development adventure where you play on behalf of your Rare Friend, shaping their persistent personality traits, reputation, relationships, and journal through emergent gameplay.
+A hybrid world-exploration and real-time combat action adventure where you play on behalf of your Rare Friend, shaping their persistent personality traits, reputation, relationships, and journal through emergent gameplay.
 
 ---
 
@@ -19,10 +19,11 @@ Rather than creating another static NFT viewer, collectible clicker, or token fa
 
 > **"You're not playing as yourself. You're playing for your Friend. Every decision you make changes who they become."**
 
-The player navigates an isometric frontier hub controlling their verified Generations Rare Friend. At the Frontier Portal, they embark on multi-stage expeditions where they encounter moral, tactical, and ethical dilemmas:
-- An ally pinned under a collapsing pylon: do you risk serious injury to rescue them, create a cunning harmonic distraction, or seize the cargo and flee?
-- A sealed ancient vault surrounded by starving scavengers: do you share the spoils equally, monopolize everything for survival, or negotiate a strict barter deal?
-- A hostile syndicate enforcer offering bribes for rebel frequencies: do you defend the station with honor, take the coins, or pull off a daring algorithmic double-cross?
+The experience features **Hybrid World Exploration + Real-Time Combat Action Encounters**:
+- **Isometric World Exploration**: Move freely across an isometric frontier garden/hub controlling your verified Generations Rare Friend (WASD, Arrow keys, or click-to-move).
+- **Real-Time Combat Arena**: Enter tactical live-action combat against dangerous frontier hostiles (Razor Stalkers, Syndicate Enforcers). Dodge incoming enemy projectiles, time plasma strikes, and shield vulnerable allies in fast-paced 60 FPS combat.
+- **In-Skirmish Moral Judgments**: When hostiles are staggered, make decisive narrative choices (mercy vs execution vs extortion) that permanently steer your Friend's moral compass.
+- **Narrative Expeditions**: Embark on multi-stage frontier expeditions facing moral, tactical, and ethical dilemmas.
 
 ### Core Design Principles Implemented:
 1. **Emergent Personality, Not Trait Menus**: The player never chooses a trait from a dropdown. Instead, actions internally feed into 8 balanced behavioral dimensions:
@@ -31,8 +32,9 @@ The player navigates an isometric frontier hub controlling their verified Genera
    - `Compassion` vs `Independence`
    - `Cunning` vs `Cooperation`
 2. **Dynamic Trait Tiers & Titles**: Traits evolve from *Tier 0 (Undeveloped)* through *Tier 1 (Emerging)*, *Tier 2 (Recognizable)*, *Tier 3 (Established)*, *Tier 4 (Strong)*, to *Tier 5 (Defining)*. Emergent titles (e.g. *"Shield of the Vulnerable"*, *"Dread Whisperer"*, *"The Undaunted Maverick"*) dynamically reflect accumulated actions.
-3. **Persistent Chronicle & NPC Memory**: The Friend maintains an evolving chronicle/journal recording significant events and consequences. NPCs remember past encounters (e.g. Courier Mara remembers whether you saved her or abandoned her).
-4. **Isolated Strict Persistence**: Progression is saved per-Friend ID. Switching wallets or Friends never cross-contaminates state.
+3. **Real-Time Action Mechanics**: Responsive keyboard and touch controls with dashing, directional projectiles, particle effects, and combat HUD.
+4. **Persistent Chronicle & NPC Memory**: The Friend maintains an evolving chronicle/journal recording significant events and consequences. NPCs remember past encounters (e.g. Courier Mara remembers whether you saved her or abandoned her).
+5. **Isolated Strict Persistence**: Progression is saved per-Friend ID. Switching wallets or Friends never cross-contaminates state.
 
 ---
 
@@ -62,9 +64,12 @@ npm ci
 npm run dev:game -- games/spotlight
 ```
 
-Open `http://localhost:4173` on your computer or mobile browser.
+Open `http://localhost:4173` on your computer or mobile browser (or port `4180` for standalone sample testing).
 
 ### Controls:
-- **Movement**: WASD, Arrow keys, or click/tap anywhere on the isometric terrain to walk.
+- **World Movement**: WASD, Arrow keys, or click/tap anywhere on the isometric terrain to walk.
+- **Combat Movement**: WASD / Arrow keys or on-screen directional controls.
+- **Combat Attack**: Spacebar or Click/Tap screen to shoot plasma projectile.
+- **Combat Dash / Dodge**: Shift key or Q (quick tactical burst with temporary invulnerability).
 - **Interactions**: Press `E` or tap an interaction marker when near stations.
 - **Audio**: Toggle procedural WebAudio effects on/off from HUD or Settings.
