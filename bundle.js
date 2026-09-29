@@ -37030,24 +37030,33 @@ ${prettyStateOverride(stateOverride)}`;
           }
         }
         ctx.clearRect(0, 0, 800, 480);
-        let bgGrad = ctx.createLinearGradient(0, 0, 800, 480);
-        let gridColor = "rgba(255, 255, 255, 0.05)";
+        let bgGrad = ctx.createRadialGradient(400, 240, 50, 400, 240, 520);
+        let gridColor = "rgba(255, 255, 255, 0.04)";
+        let boundaryGlow = "#368852";
         if (config.arenaTheme === "gorge") {
-          bgGrad.addColorStop(0, "#120a09");
-          bgGrad.addColorStop(1, "#1c100e");
-          gridColor = "rgba(237, 146, 126, 0.07)";
+          bgGrad.addColorStop(0, "#1c1110");
+          bgGrad.addColorStop(0.7, "#140b0a");
+          bgGrad.addColorStop(1, "#0a0505");
+          gridColor = "rgba(237, 146, 126, 0.08)";
+          boundaryGlow = "#ed927e";
         } else if (config.arenaTheme === "outpost") {
-          bgGrad.addColorStop(0, "#0a1114");
-          bgGrad.addColorStop(1, "#101a1e");
-          gridColor = "rgba(92, 214, 214, 0.07)";
+          bgGrad.addColorStop(0, "#0e181c");
+          bgGrad.addColorStop(0.7, "#091114");
+          bgGrad.addColorStop(1, "#04080a");
+          gridColor = "rgba(92, 214, 214, 0.08)";
+          boundaryGlow = "#5cd6d6";
         } else if (config.arenaTheme === "monolith") {
-          bgGrad.addColorStop(0, "#0a140a");
-          bgGrad.addColorStop(1, "#122012");
-          gridColor = "rgba(114, 168, 50, 0.08)";
+          bgGrad.addColorStop(0, "#101e12");
+          bgGrad.addColorStop(0.7, "#0b150c");
+          bgGrad.addColorStop(1, "#050a06");
+          gridColor = "rgba(114, 168, 50, 0.09)";
+          boundaryGlow = "#72a832";
         } else {
-          bgGrad.addColorStop(0, "#0d0814");
-          bgGrad.addColorStop(1, "#160e22");
-          gridColor = "rgba(212, 167, 54, 0.07)";
+          bgGrad.addColorStop(0, "#1a1224");
+          bgGrad.addColorStop(0.7, "#100a18");
+          bgGrad.addColorStop(1, "#08040d");
+          gridColor = "rgba(212, 167, 54, 0.09)";
+          boundaryGlow = "#d4a736";
         }
         ctx.fillStyle = bgGrad;
         ctx.fillRect(0, 0, 800, 480);
@@ -37065,31 +37074,81 @@ ${prettyStateOverride(stateOverride)}`;
           ctx.lineTo(800, y);
           ctx.stroke();
         }
+        ctx.save();
+        ctx.strokeStyle = boundaryGlow;
+        ctx.globalAlpha = 0.35;
+        ctx.lineWidth = 2;
+        ctx.strokeRect(12, 12, 776, 456);
+        ctx.globalAlpha = 0.85;
+        ctx.lineWidth = 3;
+        const cLen = 20;
+        ctx.beginPath();
+        ctx.moveTo(12, 12 + cLen);
+        ctx.lineTo(12, 12);
+        ctx.lineTo(12 + cLen, 12);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(788 - cLen, 12);
+        ctx.lineTo(788, 12);
+        ctx.lineTo(788, 12 + cLen);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(12, 468 - cLen);
+        ctx.lineTo(12, 468);
+        ctx.lineTo(12 + cLen, 468);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(788 - cLen, 468);
+        ctx.lineTo(788, 468);
+        ctx.lineTo(788, 468 - cLen);
+        ctx.stroke();
+        ctx.restore();
+        ctx.save();
+        const sec = Date.now() / 1e3;
+        for (let i = 0; i < 12; i++) {
+          const mx = (i * 68 + Math.sin(sec * 0.4 + i) * 35 + 800) % 800;
+          const my = (i * 42 + Math.cos(sec * 0.5 + i) * 25 + 480) % 480;
+          ctx.globalAlpha = 0.25 + Math.sin(sec + i) * 0.15;
+          ctx.fillStyle = boundaryGlow;
+          ctx.fillRect(Math.round(mx), Math.round(my), 2, 2);
+        }
+        ctx.restore();
         for (const obs of obstacles) {
           if (obs.hp <= 0) continue;
           ctx.save();
           const hpPct = obs.hp / obs.maxHp;
-          ctx.fillStyle = obs.hp > obs.maxHp * 0.4 ? "#1e281e" : "#2a201c";
-          ctx.strokeStyle = obs.hp > obs.maxHp * 0.4 ? "#3d543d" : "#7a463a";
+          ctx.fillStyle = "rgba(0, 0, 0, 0.45)";
+          ctx.fillRect(obs.x + 4, obs.y + 4, obs.w, obs.h);
+          ctx.fillStyle = obs.hp > obs.maxHp * 0.4 ? "#181d22" : "#241816";
+          ctx.strokeStyle = obs.hp > obs.maxHp * 0.4 ? "#3d5445" : "#843a32";
           ctx.lineWidth = 2;
           ctx.fillRect(obs.x, obs.y, obs.w, obs.h);
           ctx.strokeRect(obs.x, obs.y, obs.w, obs.h);
-          ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
-          ctx.font = "9px monospace";
+          ctx.strokeStyle = obs.hp > obs.maxHp * 0.4 ? "rgba(61, 84, 69, 0.3)" : "rgba(132, 58, 50, 0.3)";
+          ctx.lineWidth = 1;
+          for (let ox = 0; ox < obs.w + obs.h; ox += 10) {
+            ctx.beginPath();
+            ctx.moveTo(obs.x + Math.max(0, ox - obs.h), obs.y + Math.min(obs.h, ox));
+            ctx.lineTo(obs.x + Math.min(obs.w, ox), obs.y + Math.max(0, ox - obs.w));
+            ctx.stroke();
+          }
+          ctx.fillStyle = obs.hp > obs.maxHp * 0.4 ? "#a4d4ab" : "#e08078";
+          ctx.font = "bold 9px 'Courier New', monospace";
           ctx.textAlign = "center";
-          ctx.fillText(`COVER ${Math.ceil(hpPct * 100)}%`, obs.x + obs.w / 2, obs.y + obs.h / 2 + 3);
+          ctx.fillText(`PILLAR ${Math.ceil(hpPct * 100)}%`, obs.x + obs.w / 2, obs.y + obs.h / 2 + 3);
           ctx.restore();
         }
         if (config.hasAllyInDanger) {
           ctx.save();
-          ctx.fillStyle = "#b9d984";
+          ctx.fillStyle = "#368852";
           ctx.beginPath();
           ctx.arc(st.ax, st.ay, st.aRadius, 0, Math.PI * 2);
           ctx.fill();
-          ctx.strokeStyle = "#fff";
+          ctx.strokeStyle = "#e2f0e4";
+          ctx.lineWidth = 2;
           ctx.stroke();
-          ctx.fillStyle = "#fff";
-          ctx.font = "11px sans-serif";
+          ctx.fillStyle = "#ffffff";
+          ctx.font = "bold 10px 'Courier New', monospace";
           ctx.textAlign = "center";
           ctx.fillText(config.allyName ?? "Ally", st.ax, st.ay - 22);
           ctx.restore();

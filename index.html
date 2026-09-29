@@ -3,50 +3,299 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Rare Friend Spotlight: Becoming — Interactive Demo & Audio Guide</title>
+  <title>Rare Friend Spotlight: Becoming — Character Action RPG</title>
   <link rel="stylesheet" href="./bundle.css">
   <style>
+    :root {
+      --page-paper: #f7f5ed;
+      --page-line: #18191c;
+      --page-shadow: #18191c;
+      --page-surface: #efebdc;
+    }
     * { box-sizing: border-box; }
-    html, body, #root { width: 100%; height: 100%; margin: 0; background: #0c0d10; overflow: hidden; font-family: ui-monospace, monospace; }
-    .voiceover-banner {
-      position: fixed;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 99999;
-      background: #16181d;
-      border: 1px solid #368852;
-      border-radius: 4px;
-      padding: 6px 14px;
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #ece8da;
+      color: #18191c;
+      font-family: "Courier New", Courier, monospace;
+      min-height: 100vh;
+    }
+
+    .editorial-page {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 12px 24px 32px;
+    }
+
+    /* Top Navigation Status Header */
+    .editorial-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      border: 2px solid var(--page-line);
+      background: var(--page-paper);
+      box-shadow: 4px 4px 0 var(--page-shadow);
+      margin-bottom: 16px;
+    }
+    .editorial-brand {
       display: flex;
       align-items: center;
-      gap: 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.8);
-      color: #e2e4e9;
+      gap: 10px;
       font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
     }
-    .voiceover-btn {
+    .editorial-brand span {
+      background: #368852;
+      color: #fff;
+      padding: 2px 6px;
+      font-size: 11px;
+    }
+    .editorial-status {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .voiceover-play-btn {
       background: #368852;
       color: #ffffff;
-      border: none;
+      border: 1px solid var(--page-line);
+      box-shadow: 2px 2px 0 var(--page-shadow);
       padding: 4px 10px;
-      border-radius: 3px;
-      font-size: 12px;
+      font-family: inherit;
+      font-size: 11px;
       font-weight: bold;
       cursor: pointer;
     }
-    .voiceover-btn:hover {
+    .voiceover-play-btn:hover {
       background: #429d61;
+    }
+
+    /* Hero Section */
+    .editorial-hero {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .editorial-eyebrow {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      color: #6a6659;
+      margin-bottom: 4px;
+    }
+    .editorial-hero h1 {
+      margin: 0 0 6px 0;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--page-line);
+    }
+    .editorial-hero h1 em {
+      font-style: italic;
+      color: #a84238;
+    }
+    .editorial-hero p {
+      margin: 0 auto;
+      max-width: 650px;
+      font-size: 12px;
+      color: #555246;
+      line-height: 1.45;
+    }
+
+    /* Main Game Display Stage */
+    .game-stage-wrapper {
+      border: 2px solid var(--page-line);
+      box-shadow: 6px 6px 0 var(--page-shadow);
+      background: #0d0e11;
+      height: 640px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    #root {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* 4-Card Informational Grid below Game */
+    .editorial-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .editorial-card {
+      border: 2px solid var(--page-line);
+      background: var(--page-paper);
+      box-shadow: 4px 4px 0 var(--page-shadow);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .card-title {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      border-bottom: 1px dashed #c4c0b2;
+      padding-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card-title span {
+      color: #8c887b;
+      font-size: 9px;
+    }
+    .card-body {
+      font-size: 11px;
+      line-height: 1.45;
+      color: #38362f;
+    }
+    .stage-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 3px 0;
+      border-bottom: 1px solid #e2ded0;
+    }
+    .stage-item b {
+      color: #18191c;
+    }
+    .stage-tag {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 4px;
+      background: #dfdac8;
+    }
+    .trait-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+      font-size: 10px;
+    }
+    .control-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .key-badge {
+      display: inline-block;
+      padding: 1px 5px;
+      background: #18191c;
+      color: #fff;
+      font-weight: bold;
+      font-size: 10px;
+    }
+
+    @media (max-width: 900px) {
+      .editorial-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .game-stage-wrapper {
+        height: 520px;
+      }
+    }
+    @media (max-width: 600px) {
+      .editorial-grid {
+        grid-template-columns: 1fr;
+      }
+      .game-stage-wrapper {
+        height: 440px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="voiceover-banner">
-    <span>🎙️ <strong>Audio Walkthrough</strong>: Hear about mechanics & design</span>
-    <button type="button" class="voiceover-btn" id="vo-play-btn">▶ Play Commentary</button>
-    <audio id="vo-audio" src="./voiceover.mp3"></audio>
+  <div class="editorial-page">
+    <!-- Header -->
+    <header class="editorial-header">
+      <div class="editorial-brand">
+        <span>SPOTLIGHT</span>
+        <strong>RARE FRIEND: BECOMING</strong>
+      </div>
+      <div class="editorial-status">
+        <span>● LIVE ARENA</span>
+        <button type="button" class="voiceover-play-btn" id="vo-play-btn">▶ Audio Walkthrough</button>
+        <audio id="vo-audio" src="./voiceover.mp3"></audio>
+      </div>
+    </header>
+
+    <!-- Hero Title -->
+    <section class="editorial-hero">
+      <div class="editorial-eyebrow">1 PROMPT · 1 RARE FRIEND · REAL-TIME RETRO COMBAT</div>
+      <h1>Every decision changes who they <em>become.</em></h1>
+      <p>Control your hardwired Rare Friends Generations NFT in real-time boss battles. Dodge kinetic barrages, defeat sector bosses, and permanently shape your Friend's emergent traits.</p>
+    </section>
+
+    <!-- Game Screen Stage -->
+    <div class="game-stage-wrapper">
+      <main id="root"></main>
+    </div>
+
+    <!-- Editorial Cards Section -->
+    <section class="editorial-grid">
+      <!-- Card 1: Core Controls -->
+      <article class="editorial-card">
+        <div class="card-title">
+          <strong>COMBAT CONTROLS</strong>
+          <span>[ARCADE]</span>
+        </div>
+        <div class="card-body">
+          <div class="control-row"><span class="key-badge">W A S D</span> <span>Directional Movement</span></div>
+          <div class="control-row"><span class="key-badge">SPACE</span> <span>Plasma Blaster Attack</span></div>
+          <div class="control-row"><span class="key-badge">SHIFT</span> <span>Fast Dash Dodge</span></div>
+          <div class="control-row"><span class="key-badge">TAP/TOUCH</span> <span>Touch Arena Controls</span></div>
+        </div>
+      </article>
+
+      <!-- Card 2: 4 Campaign Stages -->
+      <article class="editorial-card">
+        <div class="card-title">
+          <strong>CAMPAIGN STAGES</strong>
+          <span>[PROGRESSION]</span>
+        </div>
+        <div class="card-body">
+          <div class="stage-item"><b>Stage 1: Crimson Ridge</b> <span class="stage-tag">Needle Stalker</span></div>
+          <div class="stage-item"><b>Stage 2: Rust Outpost</b> <span class="stage-tag">Shield Mech</span></div>
+          <div class="stage-item"><b>Stage 3: Monolith Ruins</b> <span class="stage-tag">Radial Lasers</span></div>
+          <div class="stage-item"><b>Stage 4: Chamber Echoes</b> <span class="stage-tag">Shadow Doppel</span></div>
+        </div>
+      </article>
+
+      <!-- Card 3: 8-Dimensional Trait Matrix -->
+      <article class="editorial-card">
+        <div class="card-title">
+          <strong>EMERGENT TRAITS</strong>
+          <span>[PERSISTENCE]</span>
+        </div>
+        <div class="card-body">
+          <div class="trait-row"><span>Courage & Caution</span> <b>Risk vs Safety</b></div>
+          <div class="trait-row"><span>Compassion & Ruthless</span> <b>Mercy vs Power</b></div>
+          <div class="trait-row"><span>Loyalty & Independence</span> <b>Allies vs Solo</b></div>
+          <div class="trait-row"><span>Cunning & Cooperation</span> <b>Tactics vs Unity</b></div>
+        </div>
+      </article>
+
+      <!-- Card 4: Architecture & SDK -->
+      <article class="editorial-card">
+        <div class="card-title">
+          <strong>FRIENDSDK V0.1.2</strong>
+          <span>[SPECIFICATION]</span>
+        </div>
+        <div class="card-body">
+          <div>• <strong>Robinhood Mainnet</strong>: Verified Gen ≥ 1 NFT</div>
+          <div>• <strong>Simulated Economy</strong>: 1.00 RF Cost · 0.90 RF Return</div>
+          <div>• <strong>Isolated Progress</strong>: Stored per Friend ID</div>
+          <div>• <strong>Pure Vanilla CSS</strong>: Zero framework bloat</div>
+        </div>
+      </article>
+    </section>
   </div>
-  <main id="root"></main>
+
   <script>
     const voBtn = document.getElementById('vo-play-btn');
     const voAudio = document.getElementById('vo-audio');
@@ -55,17 +304,17 @@
       if (!playing) {
         voAudio.play().then(() => {
           playing = true;
-          voBtn.textContent = '⏸ Pause Commentary';
+          voBtn.textContent = '⏸ Pause Audio';
         }).catch(e => console.log('Audio autoplay blocked', e));
       } else {
         voAudio.pause();
         playing = false;
-        voBtn.textContent = '▶ Play Commentary';
+        voBtn.textContent = '▶ Audio Walkthrough';
       }
     });
     voAudio.addEventListener('ended', () => {
       playing = false;
-      voBtn.textContent = '▶ Replay Commentary';
+      voBtn.textContent = '▶ Replay Audio';
     });
   </script>
   <script src="./bundle.js"></script>
