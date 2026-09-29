@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Rare Friend Spotlight: Becoming — Interactive Demo & Audio Guide</title>
+  <link rel="stylesheet" href="./bundle.css">
+  <style>
+    * { box-sizing: border-box; }
+    html, body, #root { width: 100%; height: 100%; margin: 0; background: #0c0d10; overflow: hidden; font-family: ui-monospace, monospace; }
+    .voiceover-banner {
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 99999;
+      background: #16181d;
+      border: 1px solid #368852;
+      border-radius: 4px;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.8);
+      color: #e2e4e9;
+      font-size: 13px;
+    }
+    .voiceover-btn {
+      background: #368852;
+      color: #ffffff;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .voiceover-btn:hover {
+      background: #429d61;
+    }
+  </style>
+</head>
+<body>
+  <div class="voiceover-banner">
+    <span>🎙️ <strong>Audio Walkthrough</strong>: Hear about mechanics & design</span>
+    <button type="button" class="voiceover-btn" id="vo-play-btn">▶ Play Commentary</button>
+    <audio id="vo-audio" src="./voiceover.mp3"></audio>
+  </div>
+  <main id="root"></main>
+  <script>
+    const voBtn = document.getElementById('vo-play-btn');
+    const voAudio = document.getElementById('vo-audio');
+    let playing = false;
+    voBtn.addEventListener('click', () => {
+      if (!playing) {
+        voAudio.play().then(() => {
+          playing = true;
+          voBtn.textContent = '⏸ Pause Commentary';
+        }).catch(e => console.log('Audio autoplay blocked', e));
+      } else {
+        voAudio.pause();
+        playing = false;
+        voBtn.textContent = '▶ Play Commentary';
+      }
+    });
+    voAudio.addEventListener('ended', () => {
+      playing = false;
+      voBtn.textContent = '▶ Replay Commentary';
+    });
+  </script>
+  <script src="./bundle.js"></script>
+</body>
+</html>

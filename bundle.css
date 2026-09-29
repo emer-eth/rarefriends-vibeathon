@@ -1,6 +1,310 @@
-/* Rare Friend Spotlight: Becoming — Classic Retro Action RPG Design System */
+/* assets/game-frame.css */
+.rf-game-frame {
+  position: relative;
+  isolation: isolate;
+  contain: layout paint;
+  box-sizing: border-box;
+  container-type: inline-size;
+  width: 100%;
+  max-width: var(--rf-game-max-width, 960px);
+  aspect-ratio: var(--rf-game-aspect-ratio, 3 / 2);
+  min-width: 0;
+  overflow: hidden;
+  color: #111;
+  background: #eee;
+  border: 1px solid #111;
+  font: 12px/1.4 ui-monospace, monospace;
+}
+.rf-game-frame *,
+.rf-frame-scrim * {
+  box-sizing: border-box;
+}
+.rf-frame-chrome {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.rf-frame-toolbar {
+  position: absolute;
+  z-index: 2;
+  left: 14px;
+  right: 70px;
+  bottom: 14px;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+.rf-frame-toolbar > * {
+  pointer-events: auto;
+  border: 1px solid #111;
+  background: #eee;
+  padding: 6px 8px;
+}
+.rf-frame-mode {
+  min-width: 0;
+  font: 11px ui-monospace, monospace;
+}
+.rf-frame-toolbar button {
+  max-width: 38%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rf-frame-selected-friend {
+  max-width: 38%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rf-frame-viewport {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+.rf-frame-viewport > iframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0;
+}
+.rf-game-frame button,
+.rf-frame-scrim button {
+  padding: 8px 12px;
+  min-height: 36px;
+  border: 1px solid #111;
+  background: #eee;
+  color: #111;
+  font: inherit;
+  cursor: pointer;
+}
+.rf-game-frame button:disabled,
+.rf-frame-scrim button:disabled {
+  opacity: .45;
+  cursor: default;
+}
+.rf-game-frame button:focus-visible,
+.rf-frame-scrim button:focus-visible {
+  outline: 3px solid #111;
+  outline-offset: -3px;
+}
+.rf-game-frame button:hover:not(:disabled),
+.rf-frame-scrim button:hover:not(:disabled) {
+  background: #ddd;
+}
+.rf-frame-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  padding: 20px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #11111166;
+  color: #111;
+  font: 12px/1.45 ui-monospace, monospace;
+}
+.rf-frame-menu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 520px;
+  max-height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid #111;
+  background: #eee;
+  outline: none;
+}
+.rf-frame-menu-heading {
+  display: flex;
+  flex-shrink: 0;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid #111;
+}
+.rf-frame-menu-heading h2 {
+  margin: 0;
+  font-size: 16px;
+}
+.rf-frame-menu-heading button {
+  font-size: 22px;
+  line-height: 1;
+}
+.rf-frame-menu-body {
+  padding: 16px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  min-height: 0;
+}
+.rf-frame-menu-body p {
+  margin: 0 0 14px;
+}
+.rf-frame-menu-body h3 {
+  margin: 0 0 10px;
+}
+.rf-frame-menu-footer {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 16px;
+  border-top: 1px solid #111;
+}
+.rf-frame-friends {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-block: 16px;
+}
+.rf-frame-friends button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 6px;
+  min-height: 76px;
+}
+.rf-frame-friends button[aria-pressed=true] {
+  background: #ddd;
+}
+.rf-frame-friends small,
+.rf-frame-note {
+  font-size: 12px;
+}
+.rf-frame-address {
+  overflow-wrap: anywhere;
+  font: 12px ui-monospace, monospace;
+}
+.rf-frame-wallet-balance {
+  font: bold 28px ui-monospace, monospace;
+}
+.rf-game-frame .rf-frame-primary,
+.rf-frame-scrim .rf-frame-primary {
+  background: #111;
+  color: #eee;
+}
+@container (max-width: 520px) {
+  .rf-frame-scrim {
+    padding: 6px;
+  }
+  .rf-frame-menu-heading {
+    padding: 6px 10px;
+  }
+  .rf-frame-menu-body {
+    padding: 10px;
+  }
+}
+@media (max-width: 520px) {
+  .rf-frame-scrim {
+    padding: 6px;
+  }
+  .rf-frame-menu-heading {
+    padding: 6px 10px;
+  }
+  .rf-frame-menu-body {
+    padding: 10px;
+  }
+  .rf-frame-toolbar {
+    left: 6px;
+    bottom: 6px;
+    right: 42px;
+    gap: 4px;
+    font-size: 9px;
+  }
+  .rf-frame-mode {
+    font-size: 9px;
+  }
+  .rf-frame-toolbar button {
+    padding-inline: 7px;
+  }
+}
 
-/* Clean matte theme overrides for FriendSDK GameMenu */
+/* assets/world-view.css */
+.rf-world-view {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #fff;
+  color: #000;
+}
+.rf-world-surface {
+  position: relative;
+  flex: none;
+}
+.rf-world-surface canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  image-rendering: pixelated;
+  outline-offset: -3px;
+}
+.rf-world-prompt {
+  position: absolute;
+  transform: translate(-50%, 0);
+  border: 2px solid #000;
+  background: #fff;
+  color: #000;
+  padding: 8px 12px;
+  font: 700 13px/1.2 monospace;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.rf-world-prompt small {
+  display: block;
+  margin-top: 4px;
+  font-size: 10px;
+  font-weight: 400;
+}
+.rf-world-prompt:disabled {
+  cursor: default;
+  background: #fff;
+  color: #666;
+  border-color: #888;
+  pointer-events: none;
+}
+.rf-world-prompt:enabled {
+  background: #ccff00;
+}
+.rf-world-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  padding: 24px;
+  text-align: center;
+}
+.rf-world-loading button {
+  border: 2px solid #000;
+  padding: 10px 18px;
+  background: #ccff00;
+  cursor: pointer;
+}
+@media (max-width: 520px) {
+  .rf-world-prompt {
+    font-size: 11px;
+    padding: 6px;
+    min-height: 44px;
+  }
+  .rf-world-prompt small {
+    font-size: 9px;
+  }
+}
+
+/* games/spotlight/style.css */
 .rf-game-frame .rf-frame-menu,
 .rf-frame-scrim .rf-frame-menu {
   background: #121316 !important;
@@ -9,7 +313,6 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6) !important;
   border-radius: 4px !important;
 }
-
 .rf-game-frame .rf-frame-menu-heading,
 .rf-frame-scrim .rf-frame-menu-heading {
   background: #181a1f !important;
@@ -17,7 +320,6 @@
   border-bottom: 1px solid #282a32 !important;
   border-radius: 4px 4px 0 0 !important;
 }
-
 .rf-game-frame .rf-frame-menu-heading h2,
 .rf-frame-scrim .rf-frame-menu-heading h2 {
   color: #ffffff !important;
@@ -25,7 +327,6 @@
   font-weight: 700 !important;
   letter-spacing: 0.02em !important;
 }
-
 .rf-game-frame .rf-frame-menu-heading button,
 .rf-frame-scrim .rf-frame-menu-heading button {
   background: #22252c !important;
@@ -33,32 +334,33 @@
   border: 1px solid #333640 !important;
   border-radius: 3px !important;
 }
-
 .rf-game-frame .rf-frame-menu-body,
 .rf-frame-scrim .rf-frame-menu-body {
   background: #121316 !important;
   color: #e2e4e9 !important;
 }
-
 .spotlight-root {
   position: relative;
   width: 100%;
   height: 100%;
   background: #0d0e11;
   color: #e2e4e9;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace, sans-serif;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    monospace,
+    sans-serif;
   overflow: hidden;
   user-select: none;
 }
-
-/* 1. Main Viewport */
 .spotlight-world-viewport {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
 }
-
 .spotlight-loading {
   display: flex;
   align-items: center;
@@ -68,8 +370,6 @@
   font-weight: 600;
   font-size: 1rem;
 }
-
-/* Classic Crisp HUD Header */
 .spotlight-hud {
   position: absolute;
   top: 10px;
@@ -81,7 +381,6 @@
   z-index: 10;
   pointer-events: none;
 }
-
 .hud-friend-badge {
   display: flex;
   align-items: center;
@@ -95,34 +394,27 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
   transition: border-color 0.1s ease;
 }
-
 .hud-friend-badge:hover {
   border-color: #5a6070;
 }
-
 .hud-friend-meta {
   display: flex;
   flex-direction: column;
 }
-
 .hud-friend-meta strong {
   font-size: 0.9rem;
   color: #ffffff;
   letter-spacing: 0.02em;
 }
-
 .hud-friend-meta span {
   font-size: 0.75rem;
   color: #8f95a3;
 }
-
 .hud-actions {
   display: flex;
   gap: 6px;
   pointer-events: auto;
 }
-
-/* Classic Game Buttons */
 .spotlight-btn {
   display: inline-flex;
   align-items: center;
@@ -136,41 +428,33 @@
   padding: 6px 12px;
   text-decoration: none;
 }
-
 .spotlight-btn.small {
   padding: 5px 8px;
   font-size: 0.75rem;
 }
-
 .spotlight-btn.large {
   padding: 10px 18px;
   font-size: 0.92rem;
 }
-
 .spotlight-btn.primary {
   background: #1e3a24;
   color: #e2f0e4;
   border: 1px solid #36603e;
 }
-
 .spotlight-btn.primary:hover {
   background: #2a5032;
   border-color: #4a8054;
 }
-
 .spotlight-btn.secondary {
   background: #1a1c22;
   color: #c4c8d4;
   border: 1px solid #2c303a;
 }
-
 .spotlight-btn.secondary:hover {
   background: #242730;
   border-color: #444a58;
   color: #ffffff;
 }
-
-/* World bottom hint */
 .spotlight-world-hint {
   position: absolute;
   bottom: 8px;
@@ -181,8 +465,6 @@
   color: rgba(255, 255, 255, 0.5);
   pointer-events: none;
 }
-
-/* 2. Modal Body Styles */
 .spotlight-modal-body {
   display: flex;
   flex-direction: column;
@@ -195,18 +477,14 @@
   border-radius: 4px;
   margin: -8px;
 }
-
 .spotlight-text-secondary {
   color: #8f95a3;
   font-size: 0.82rem;
 }
-
-/* Intro Card */
 .intro-card {
   text-align: center;
   align-items: center;
 }
-
 .intro-hero-visual {
   display: flex;
   flex-direction: column;
@@ -214,13 +492,11 @@
   gap: 8px;
   padding: 6px 0;
 }
-
 .intro-titles h3 {
   margin: 4px 0 2px 0;
   font-size: 1.15rem;
   color: #ffffff;
 }
-
 .badge-tag {
   display: inline-block;
   background: #1a241c;
@@ -231,20 +507,16 @@
   font-size: 0.75rem;
   font-weight: 700;
 }
-
 .intro-core-credo {
   font-size: 0.95rem;
   color: #e2e4e9;
   margin: 4px 0;
 }
-
 .intro-cta-row {
   display: flex;
   gap: 10px;
   margin-top: 6px;
 }
-
-/* Encounter Layout */
 .encounter-progress-pill {
   align-self: flex-start;
   background: #181a20;
@@ -256,21 +528,18 @@
   color: #8f95a3;
   text-transform: uppercase;
 }
-
 .encounter-situation-box {
   background: #16181d;
   border: 1px solid #282c36;
   border-radius: 4px;
   padding: 12px;
 }
-
 .encounter-desc {
   margin: 0 0 8px 0;
   font-size: 0.88rem;
   color: #e2e4e9;
   line-height: 1.45;
 }
-
 .encounter-dialogue {
   margin: 0;
   padding: 8px 12px;
@@ -281,7 +550,6 @@
   color: #c0d0c4;
   font-size: 0.84rem;
 }
-
 .encounter-prompt-label {
   font-weight: 700;
   color: #ffffff;
@@ -289,13 +557,11 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
-
 .encounter-actions-list {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
-
 .encounter-action-card {
   text-align: left;
   background: #16181d !important;
@@ -306,18 +572,15 @@
   transition: background 0.1s ease, border-color 0.1s ease;
   color: #e2e4e9 !important;
 }
-
 .encounter-action-card:hover {
   background: #1e2129 !important;
   border-color: #485264 !important;
 }
-
 .action-card-header {
   display: flex;
   justify-content: space-between;
   margin-bottom: 4px;
 }
-
 .action-intent-pill {
   font-size: 0.72rem;
   font-weight: 700;
@@ -325,13 +588,11 @@
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
-
 .action-xp-tag {
   font-size: 0.72rem;
   color: #d4a736 !important;
   font-weight: 700;
 }
-
 .action-card-label {
   display: block;
   font-size: 0.92rem;
@@ -339,15 +600,12 @@
   color: #ffffff !important;
   margin-bottom: 2px;
 }
-
 .action-card-preview {
   margin: 0;
   font-size: 0.82rem;
   color: #8f95a3 !important;
   line-height: 1.35;
 }
-
-/* Outcome Card */
 .outcome-header-banner {
   display: flex;
   align-items: center;
@@ -355,38 +613,32 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding-bottom: 12px;
 }
-
 .outcome-header-banner h4 {
   margin: 0 0 4px 0;
   color: #fff;
 }
-
 .outcome-narration {
   margin: 0;
   font-style: italic;
   font-size: 0.88rem;
   color: #a4b3a4;
 }
-
 .outcome-consequence-box {
   background: rgba(22, 28, 22, 0.7);
   padding: 12px;
   border-radius: 8px;
   border-left: 3px solid #7db4db;
 }
-
 .outcome-behavior-deltas {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
-
 .delta-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
-
 .delta-tag {
   background: rgba(40, 62, 24, 0.6);
   color: #c4f08a;
@@ -396,31 +648,29 @@
   font-size: 0.8rem;
   font-weight: 600;
 }
-
 .level-up-banner {
-  background: linear-gradient(90deg, rgba(40, 62, 24, 0.6), rgba(64, 48, 16, 0.6));
+  background:
+    linear-gradient(
+      90deg,
+      rgba(40, 62, 24, 0.6),
+      rgba(64, 48, 16, 0.6));
   border: 1px solid #d4a736;
   border-radius: 8px;
   padding: 10px;
   text-align: center;
   color: #fff;
 }
-
-/* Session Summary */
 .session-summary-card {
   gap: 14px;
 }
-
 .summary-hero {
   display: flex;
   align-items: center;
   gap: 16px;
 }
-
 .summary-hero-info h3 {
   margin: 0 0 4px 0;
 }
-
 .reputation-badge {
   display: inline-block;
   background: #253818;
@@ -431,13 +681,11 @@
   padding: 2px 8px;
   border-radius: 4px;
 }
-
 .summary-metrics-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
-
 .summary-metric-box {
   background: rgba(255, 255, 255, 0.05);
   padding: 10px;
@@ -446,31 +694,25 @@
   flex-direction: column;
   gap: 4px;
 }
-
 .metric-label {
   font-size: 0.75rem;
   color: #9cb09c;
 }
-
 .metric-val {
   font-size: 0.95rem;
   color: #fff;
 }
-
 .summary-actions-row {
   display: flex;
   gap: 8px;
   margin-top: 8px;
 }
-
-/* Profile Dossier */
 .profile-dossier {
   gap: 16px;
   max-height: 480px;
   overflow-y: auto;
   padding-right: 4px;
 }
-
 .dossier-top {
   display: flex;
   align-items: center;
@@ -478,17 +720,14 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding-bottom: 14px;
 }
-
 .dossier-info {
   flex: 1;
 }
-
 .dossier-info h3 {
   margin: 0 0 2px 0;
   font-size: 1.25rem;
   color: #fff;
 }
-
 .dossier-rep-title {
   display: inline-block;
   color: #c4f08a;
@@ -496,7 +735,6 @@
   font-size: 0.88rem;
   margin-bottom: 8px;
 }
-
 .dossier-xp-bar-container {
   height: 8px;
   background: rgba(255, 255, 255, 0.12);
@@ -504,27 +742,27 @@
   overflow: hidden;
   margin-bottom: 4px;
 }
-
 .dossier-xp-fill {
   height: 100%;
-  background: linear-gradient(90deg, #7db4db, #d4a736);
+  background:
+    linear-gradient(
+      90deg,
+      #7db4db,
+      #d4a736);
   transition: width 0.3s ease;
 }
-
 .dossier-xp-stats {
   display: flex;
   justify-content: space-between;
   font-size: 0.75rem;
   color: #9cb09c;
 }
-
 .dossier-nav-tabs {
   display: flex;
   gap: 8px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding-bottom: 6px;
 }
-
 .dossier-tab {
   background: transparent;
   border: none;
@@ -535,19 +773,15 @@
   border-radius: 6px;
   cursor: pointer;
 }
-
 .dossier-tab.active {
   background: #1e3a24;
   color: #a4d4ab;
 }
-
-/* Trait Matrix */
 .trait-matrix-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
 }
-
 .trait-metric-cell {
   background: #16181d;
   border: 1px solid #282c36;
@@ -557,19 +791,16 @@
   flex-direction: column;
   gap: 3px;
 }
-
 .trait-cell-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
 .trait-name {
   font-weight: 700;
   font-size: 0.8rem;
   color: #ffffff;
 }
-
 .trait-tier-tag {
   font-size: 0.68rem;
   padding: 1px 5px;
@@ -578,57 +809,50 @@
   color: #8f95a3;
   font-weight: 700;
 }
-
 .trait-tier-tag.tier-5 {
   background: #1e3a24;
   color: #a4d4ab;
   border: 1px solid #36603e;
 }
-
 .trait-bar {
   height: 5px;
   background: #20242e;
   border-radius: 2px;
   overflow: hidden;
 }
-
 .trait-bar-fill {
   height: 100%;
   background: #368852;
 }
-
 .trait-points-val {
   font-size: 0.68rem;
   color: #8f95a3;
   align-self: flex-end;
 }
-
 .dossier-secondary-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
-
-.dossier-skills-box, .dossier-achievements-box {
+.dossier-skills-box,
+.dossier-achievements-box {
   background: #16181d;
   border: 1px solid #282c36;
   border-radius: 4px;
   padding: 10px;
 }
-
-.dossier-skills-box h4, .dossier-achievements-box h4 {
+.dossier-skills-box h4,
+.dossier-achievements-box h4 {
   margin: 0 0 6px 0;
   font-size: 0.82rem;
   color: #ffffff;
 }
-
 .dossier-skills-box ul {
   margin: 0;
   padding-left: 16px;
   font-size: 0.78rem;
   color: #8f95a3;
 }
-
 .achievement-badges {
   display: flex;
   flex-wrap: wrap;
@@ -637,7 +861,6 @@
   overflow-y: auto;
   padding-right: 4px;
 }
-
 .achievement-badge {
   background: #1c202a;
   color: #e6be76;
@@ -650,44 +873,37 @@
   align-items: center;
   gap: 4px;
 }
-
 .achievement-badge.sector-badge {
   background: #16202a;
   color: #92bce6;
   border-color: #304e6c;
 }
-
 .achievement-badge.legend-badge {
   background: #261616;
   color: #e08078;
   border-color: #582420;
 }
-
 .dossier-footer-btns {
   display: flex;
   gap: 10px;
   margin-top: 8px;
 }
-
-/* Journal View */
 .journal-view {
   max-height: 480px;
   overflow-y: auto;
   gap: 12px;
 }
-
-.journal-subtitle, .memories-subtitle {
+.journal-subtitle,
+.memories-subtitle {
   margin: 0;
   font-size: 0.85rem;
   color: #9cb09c;
 }
-
 .journal-entries-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-
 .journal-entry-card {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -695,7 +911,6 @@
   border-radius: 8px;
   padding: 10px 14px;
 }
-
 .journal-card-header {
   display: flex;
   justify-content: space-between;
@@ -703,30 +918,25 @@
   font-size: 0.88rem;
   color: #fff;
 }
-
 .journal-card-header time {
   font-size: 0.75rem;
   color: #8c9c8c;
 }
-
 .journal-narrative {
   margin: 0 0 6px 0;
   font-size: 0.85rem;
   color: #e5ece5;
 }
-
 .journal-consequence {
   margin: 0 0 8px 0;
   font-size: 0.82rem;
   color: #a4b3a4;
 }
-
 .journal-highlights {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
-
 .journal-highlight-tag {
   font-size: 0.7rem;
   padding: 2px 6px;
@@ -734,71 +944,57 @@
   background: rgba(204, 255, 0, 0.1);
   color: #ccff00;
 }
-
-/* Memories */
 .memories-view {
   max-height: 480px;
   overflow-y: auto;
   gap: 12px;
 }
-
 .memories-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-
 .memory-card {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
   padding: 10px 14px;
 }
-
 .memory-card-head {
   display: flex;
   justify-content: space-between;
   margin-bottom: 4px;
 }
-
 .memory-status {
   font-size: 0.72rem;
   font-weight: 700;
   padding: 2px 6px;
   border-radius: 4px;
 }
-
 .memory-status.status-ally {
   background: rgba(185, 217, 132, 0.2);
   color: #b9d984;
 }
-
 .memory-status.status-hostile {
   background: rgba(237, 146, 126, 0.2);
   color: #ed927e;
 }
-
 .memory-status.status-wary {
   background: rgba(242, 206, 104, 0.2);
   color: #f2ce68;
 }
-
 .memory-notes {
   margin: 0 0 4px 0;
   font-size: 0.82rem;
   color: #ccd5cc;
 }
-
 .memory-last {
   font-size: 0.72rem;
   color: #8c9c8c;
 }
-
-/* Settings Card */
 .settings-card {
   gap: 14px;
 }
-
 .settings-row {
   display: flex;
   justify-content: space-between;
@@ -806,14 +1002,12 @@
   padding-bottom: 8px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
-
 .checkbox-label {
   display: flex;
   align-items: center;
   gap: 6px;
   cursor: pointer;
 }
-
 .settings-notice {
   background: rgba(204, 255, 0, 0.08);
   border: 1px solid rgba(204, 255, 0, 0.2);
@@ -821,8 +1015,6 @@
   padding: 10px;
   font-size: 0.82rem;
 }
-
-/* 3. Real-Time Combat Arena Styles */
 .combat-arena-container {
   position: absolute;
   inset: 0;
@@ -832,7 +1024,6 @@
   z-index: 100;
   overflow: hidden;
 }
-
 .combat-hud {
   display: flex;
   justify-content: space-between;
@@ -842,20 +1033,19 @@
   border-bottom: 1px solid #282a32;
   z-index: 10;
 }
-
-.combat-player-stats, .combat-enemy-stats {
+.combat-player-stats,
+.combat-enemy-stats {
   display: flex;
   align-items: center;
   gap: 10px;
 }
-
-.combat-player-stats .stat-bars, .combat-enemy-stats .stat-bars {
+.combat-player-stats .stat-bars,
+.combat-enemy-stats .stat-bars {
   display: flex;
   flex-direction: column;
   width: 150px;
   gap: 3px;
 }
-
 .bar-label {
   display: flex;
   justify-content: space-between;
@@ -864,26 +1054,22 @@
   color: #8f95a3;
   letter-spacing: 0.04em;
 }
-
 .bar-track {
   height: 6px;
   background: #242730;
   border-radius: 2px;
   overflow: hidden;
 }
-
 .bar-fill.hp {
   height: 100%;
   background: #368852;
   transition: width 0.1s linear;
 }
-
 .bar-fill.enemy {
   height: 100%;
   background: #a84238;
   transition: width 0.1s linear;
 }
-
 .combat-controls-hint {
   display: flex;
   flex-direction: column;
@@ -892,13 +1078,11 @@
   font-size: 0.76rem;
   color: #8f95a3;
 }
-
 .combat-sectors-switch {
   display: flex;
   gap: 5px;
   align-items: center;
 }
-
 .sector-tab-btn {
   background: #181a20 !important;
   color: #8f95a3 !important;
@@ -909,19 +1093,16 @@
   padding: 3px 6px;
   cursor: pointer;
 }
-
 .sector-tab-btn:hover {
   background: #222630 !important;
   color: #ffffff !important;
   border-color: #4a5468 !important;
 }
-
 .sector-tab-btn.active {
   background: #222630 !important;
   color: #a4d4ab !important;
   border-color: #4a8054 !important;
 }
-
 .combat-canvas-wrapper {
   flex: 1;
   display: flex;
@@ -931,7 +1112,6 @@
   cursor: crosshair;
   outline: none;
 }
-
 .combat-canvas-wrapper canvas {
   width: 100%;
   height: 100%;
@@ -939,7 +1119,6 @@
   max-height: 580px;
   display: block;
 }
-
 .combat-modal-overlay {
   position: absolute;
   inset: 0;
@@ -949,7 +1128,6 @@
   justify-content: center;
   z-index: 20;
 }
-
 .combat-dilemma-card {
   width: 90%;
   max-width: 580px;
@@ -962,12 +1140,10 @@
   gap: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
 }
-
 .combat-dilemma-card.defeat {
   border-color: #a84238;
   text-align: center;
 }
-
 .victory-badge {
   align-self: flex-start;
   background: #1a241c;
@@ -979,7 +1155,6 @@
   border-radius: 3px;
   letter-spacing: 0.04em;
 }
-
 .defeat-badge {
   align-self: center;
   background: #261616;
@@ -991,25 +1166,21 @@
   border-radius: 3px;
   letter-spacing: 0.04em;
 }
-
 .combat-dilemma-card h3 {
   margin: 0;
   font-size: 1.1rem;
   color: #ffffff;
 }
-
 .dilemma-subtext {
   margin: 0;
   font-size: 0.8rem;
   color: #8f95a3;
 }
-
 .dilemma-choices-list {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
-
 .dilemma-choice-btn {
   background: #181a20 !important;
   border: 1px solid #2c303a !important;
@@ -1019,31 +1190,26 @@
   color: #e2e4e9 !important;
   cursor: pointer;
 }
-
 .dilemma-choice-btn:hover {
   background: #22252e !important;
   border-color: #4a5468 !important;
 }
-
 .dilemma-btn-header {
   display: flex;
   justify-content: space-between;
   margin-bottom: 2px;
 }
-
 .dilemma-intent {
   font-size: 0.7rem;
   font-weight: 700;
   color: #7ab886 !important;
   text-transform: uppercase;
 }
-
 .dilemma-xp {
   font-size: 0.7rem;
   color: #d4a736 !important;
   font-weight: 700;
 }
-
 .dilemma-choice-btn strong {
   display: block;
   font-size: 0.9rem;
@@ -1051,13 +1217,11 @@
   color: #ffffff !important;
   margin-bottom: 2px;
 }
-
 .dilemma-choice-btn p {
   margin: 0;
   font-size: 0.8rem;
   color: #8f95a3 !important;
 }
-
 .combat-bottom-bar {
   display: flex;
   justify-content: space-between;
@@ -1066,7 +1230,6 @@
   background: #101215;
   border-top: 1px solid #20242c;
 }
-
 .objective-callout {
   font-size: 0.8rem;
   font-weight: 700;
@@ -1074,23 +1237,19 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
-
 .control-keys-bar {
   font-size: 0.75rem;
   color: #9cb09c;
 }
-
 .control-keys-bar strong {
   color: #fff;
 }
-
 .defeat-cta-row {
   display: flex;
   gap: 12px;
   justify-content: center;
   margin-top: 8px;
 }
-
 .dilemma-footer-actions {
   display: flex;
   justify-content: flex-end;
@@ -1098,14 +1257,11 @@
   padding-top: 12px;
   margin-top: 4px;
 }
-
-/* Roadmap Modal Styles */
 .roadmap-layout {
   max-height: 520px;
   overflow-y: auto;
   padding-right: 4px;
 }
-
 .roadmap-intro-banner {
   display: flex;
   justify-content: space-between;
@@ -1116,19 +1272,16 @@
   padding: 12px 16px;
   margin-bottom: 16px;
 }
-
 .roadmap-intro-banner h4 {
   margin: 0 0 4px 0;
   font-size: 1rem;
   color: #fff;
 }
-
 .roadmap-intro-banner p {
   margin: 0;
   font-size: 0.82rem;
   color: #9cb59c;
 }
-
 .roadmap-progress-badge {
   display: flex;
   flex-direction: column;
@@ -1139,25 +1292,20 @@
   padding: 6px 12px;
   min-width: 70px;
 }
-
 .roadmap-progress-badge span {
   font-size: 0.7rem;
   color: #9cb59c;
   text-transform: uppercase;
 }
-
 .roadmap-progress-badge strong {
   font-size: 1rem;
   color: #5cd6d6;
 }
-
-/* Roadmap Modal Styles */
 .roadmap-layout {
   max-height: 520px;
   overflow-y: auto;
   padding-right: 4px;
 }
-
 .roadmap-intro-banner {
   display: flex;
   justify-content: space-between;
@@ -1168,19 +1316,16 @@
   padding: 10px 14px;
   margin-bottom: 14px;
 }
-
 .roadmap-intro-banner h4 {
   margin: 0 0 2px 0;
   font-size: 0.95rem;
   color: #ffffff;
 }
-
 .roadmap-intro-banner p {
   margin: 0;
   font-size: 0.8rem;
   color: #8f95a3;
 }
-
 .roadmap-progress-badge {
   display: flex;
   flex-direction: column;
@@ -1191,29 +1336,24 @@
   padding: 4px 10px;
   min-width: 60px;
 }
-
 .roadmap-progress-badge span {
   font-size: 0.65rem;
   color: #8f95a3;
   text-transform: uppercase;
 }
-
 .roadmap-progress-badge strong {
   font-size: 0.95rem;
   color: #ffffff;
 }
-
 .roadmap-timeline {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-
 .roadmap-node {
   display: flex;
   gap: 10px;
 }
-
 .roadmap-node-marker {
   display: flex;
   flex-direction: column;
@@ -1221,7 +1361,6 @@
   width: 24px;
   flex-shrink: 0;
 }
-
 .node-num {
   width: 24px;
   height: 24px;
@@ -1235,26 +1374,22 @@
   font-size: 0.72rem;
   font-weight: 700;
 }
-
 .node-completed .node-num {
   background: #1a241c;
   border-color: #36603e;
   color: #a4d4ab;
 }
-
 .node-unlocked .node-num {
   background: #16202a;
   border-color: #304e6c;
   color: #92bce6;
 }
-
 .node-line {
   flex: 1;
   width: 1px;
   background: #242730;
   margin-top: 4px;
 }
-
 .roadmap-card {
   flex: 1;
   background: #16181d;
@@ -1265,21 +1400,17 @@
   flex-direction: column;
   gap: 6px;
 }
-
 .node-completed .roadmap-card {
   border-color: #2a3a2e;
 }
-
 .node-unlocked .roadmap-card {
   border-color: #283648;
 }
-
 .roadmap-card-head {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
-
 .roadmap-location {
   font-size: 0.68rem;
   color: #8f95a3;
@@ -1287,79 +1418,66 @@
   font-weight: 700;
   letter-spacing: 0.04em;
 }
-
 .roadmap-card-head h5 {
   margin: 2px 0 0 0;
   font-size: 0.9rem;
   color: #ffffff;
 }
-
 .roadmap-tags {
   display: flex;
   gap: 5px;
   align-items: center;
 }
-
 .threat-tag {
   font-size: 0.65rem;
   font-weight: 700;
   padding: 2px 6px;
   border-radius: 3px;
 }
-
 .threat-standard {
   background: #18201a;
   color: #a4d4ab;
   border: 1px solid #2e4432;
 }
-
 .threat-advanced {
   background: #16202a;
   color: #92bce6;
   border: 1px solid #304e6c;
 }
-
 .threat-extreme {
   background: #261f14;
   color: #e6be76;
   border: 1px solid #544020;
 }
-
 .threat-legendary {
   background: #261616;
   color: #e08078;
   border: 1px solid #582420;
 }
-
 .status-tag {
   font-size: 0.65rem;
   font-weight: 700;
   padding: 2px 6px;
   border-radius: 3px;
 }
-
 .status-tag.completed {
   background: #1e3a24;
   color: #a4d4ab;
 }
-
 .status-tag.active {
   background: #1a2838;
   color: #92bce6;
 }
-
 .status-tag.locked {
   background: #1e2026;
   color: #6a7080;
 }
-
 .roadmap-lore {
   margin: 0;
   font-size: 0.8rem;
   color: #8f95a3;
   line-height: 1.4;
 }
-
 .roadmap-meta-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1368,45 +1486,36 @@
   border-radius: 3px;
   padding: 6px 10px;
 }
-
 .roadmap-meta-item {
   display: flex;
   flex-direction: column;
   font-size: 0.72rem;
 }
-
 .roadmap-meta-item.full {
   grid-column: span 2;
 }
-
 .meta-label {
   color: #6a7080;
   font-size: 0.65rem;
   text-transform: uppercase;
 }
-
 .meta-val {
   color: #c4c8d4;
 }
-
 .meta-val.highlight {
   color: #e6be76;
   font-weight: 600;
 }
-
 .roadmap-card-actions {
   display: flex;
   justify-content: flex-end;
   margin-top: 4px;
 }
-
-/* Ecosystem Roadmap Cards */
 .ecosystem-cards-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-
 .ecosystem-card {
   background: #16181d;
   border: 1px solid #282c36;
@@ -1416,63 +1525,52 @@
   flex-direction: column;
   gap: 8px;
 }
-
 .ecosystem-card.card-active {
   border-color: #36603e;
 }
-
 .ecosystem-card.card-upcoming {
   border-color: #304e6c;
 }
-
 .ecosystem-card.card-future {
   border-color: #544020;
 }
-
 .eco-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
-
 .eco-timeline {
   font-size: 0.68rem;
   color: #8f95a3;
   text-transform: uppercase;
   font-weight: 700;
 }
-
 .eco-header h5 {
   margin: 2px 0 0 0;
   font-size: 0.92rem;
   color: #ffffff;
 }
-
 .eco-badge {
   font-size: 0.68rem;
   font-weight: 700;
   padding: 2px 6px;
   border-radius: 3px;
 }
-
 .eco-badge.badge-active {
   background: #1e3a24;
   color: #a4d4ab;
   border: 1px solid #36603e;
 }
-
 .eco-badge.badge-upcoming {
   background: #16202a;
   color: #92bce6;
   border: 1px solid #304e6c;
 }
-
 .eco-badge.badge-future {
   background: #261f14;
   color: #e6be76;
   border: 1px solid #544020;
 }
-
 .eco-feature-list {
   margin: 0;
   padding-left: 16px;
@@ -1480,10 +1578,36 @@
   flex-direction: column;
   gap: 4px;
 }
-
 .eco-feature-list li {
   font-size: 0.8rem;
   color: #8f95a3;
   line-height: 1.35;
 }
 
+/* assets/runtime.css */
+.rf-runtime-status {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  background: #eee;
+}
+.rf-runtime-status p {
+  max-width: 36em;
+}
+.rf-runtime-connection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.rf-runtime-connection p {
+  flex-basis: 100%;
+  overflow-wrap: anywhere;
+}
