@@ -1,52 +1,112 @@
 # Rare Friend Spotlight: Becoming
 
-> "You're not playing as yourself. You're playing for your Friend. Every decision you make changes who they become."
-
-A character-driven adventure and identity progression game built for the **Rare Friends Vibe-a-thon** (Category: **Character Spotlight**).
-
-Instead of a generic NFT viewer or clicker, **Friend Spotlight: Becoming** transforms the player's Rare Friend into an evolving, living identity. Through dilemmas, alliances, dangers, and moral choices, the player guides their Friend. The Friend's personality traits (Courage, Caution, Loyalty, Ruthlessness, Compassion, Cunning, Cooperation, Independence), skills, reputation archetype, and personal chronicle emerge directly from actual gameplay.
+A character-driven action RPG and identity progression game where your Rare Friend fights through live boss arenas and evolves their permanent personality, chronicle, and reputation archetype.
 
 ---
 
-## 🎮 How to Play
+### Project Name
+**Rare Friend Spotlight: Becoming**
 
-1. **Connect & Select**: Connect your browser wallet on Robinhood mainnet (chain 4663) and select your hardwired Rare Friends Generations NFT (Gen ≥ 1).
-2. **Frontier Hub**: Explore the isometric sanctuary with your Rare Friend (WASD, Arrow keys, or tap to walk).
-3. **Embark on Encounters**: Step into the **Frontier Portal** to face multi-stage moral, tactical, and survival scenarios.
-4. **Choose With Care**:
-   - Risk life and limb to protect comrades (fostering *Courage* and *Loyalty*).
-   - Make cold tactical trade-offs (developing *Ruthlessness* and *Cunning*).
-   - Solve situations through ingenious diversions or alliances (building *Compassion*, *Cooperation*, or *Independence*).
-5. **Emergent Progression**:
-   - Gain XP and level up your Friend.
-   - Watch personality tiers advance from *Undeveloped* → *Emerging* → *Recognizable* → *Established* → *Strong* → *Defining*.
-   - Uncover your Friend's emergent reputation archetype (e.g., *"Shield of the Vulnerable"*, *"Dread Whisperer"*, *"The Undaunted Maverick"*).
-6. **Chronicle & Memories**: Read your Friend's persistent Journal and inspect how NPCs remember your Friend's past deeds.
-7. **Persistent Identity**: Leave anytime and return later. Your Friend's progression, chronicle, and traits are saved per-Friend ID.
+### Builder / Contact
+**emer-eth** (GitHub: [@emer-eth](https://github.com/emer-eth))
+
+### Category
+**Character Spotlight** (Best use of a Generations NFT as the main character)
 
 ---
 
-## 🛠️ Stack & FriendSDK Integration
+## What did you build?
 
-- **Framework**: FriendSDK v0.1.2
-- **Wallet & Ownership**: Native SDK runtime verification with Robinhood mainnet Generations NFT verification.
-- **Rendering**: Canonical on-chain Generations sprite frame decoder + isometric world view.
-- **Persistence**: Application-layer localStorage engine isolated strictly per-Friend ID.
-- **Audio**: Procedural FriendSDK WebAudio sound kit with 10 custom cues and mute controls.
-- **Viewport**: Responsive 960 × 640 standard sandbox container.
+**Rare Friend Spotlight: Becoming** is a real-time combat action RPG and character evolution experience built specifically for Rare Friends. Instead of treating the NFT as a static profile picture or simple clicker, the game places your selected Rare Friend at the center of live combat encounters, tactical dilemmas, and permanent personality growth:
+
+1. **60 FPS Real-Time Combat Arena**: Control your Rare Friend in top-down combat with WASD movement, directional plasma blasters, rapid dash evasions, and destructible cover pillars.
+2. **Escalating 4-Stage Campaign**:
+   - **Stage 1 (Crimson Ridge)**: Razor Stalker Alpha (fast needle lunges).
+   - **Stage 2 (Rust Outpost)**: Enforcer Kaelen (kinetic shield turret & ricochet wall fire).
+   - **Stage 3 (Ancient Monolith)**: Gorgon Core Construct (rotating radial lasers & bullet-hell barrages).
+   - **Stage 4 (Chamber of Echoes)**: Shadow Reflection (dynamic doppelgänger mirroring your Friend's traits and speed).
+3. **8-Dimensional Emergent Trait Engine**: Your combat decisions shape permanent traits (*Courage, Caution, Loyalty, Ruthlessness, Compassion, Cunning, Cooperation, Independence*), progressing across 6 tiers (*Undeveloped* → *Defining*).
+4. **Emergent Reputation Titles**: Your Friend dynamically earns reputation archetypes based on their dominant traits (e.g., *Shield of the Vulnerable*, *Dread Whisperer*, *The Undaunted Maverick*).
+5. **Persistent Chronicle & NPC Memories**: A persistent in-game journal records every battle outcome, while an NPC memory system tracks how world characters view your Friend.
+6. **In-Game Campaign & Ecosystem Roadmap**: Integrated 4-stage campaign tree and future ecosystem updates.
 
 ---
 
-## 🚀 Running Locally
+## How does it use Rare Friends?
 
+- **Generations NFT as Hero**: You play directly as your own Generations NFT (Gen ≥ 1), dynamically rendered with authentic sprite animations across idle, walking, and directional combat states.
+- **Identity Isolation**: Progression, XP, traits, and chronicle entries are stored strictly isolated per-Friend ID. Switching NFTs swaps your character's stats and history.
+- **FriendSDK World & Audio**: Uses FriendSDK v0.1.2's canonical world presets and procedural WebAudio sound kit.
+
+---
+
+## Source Code
+
+- **Game Files in Submission**: [`submissions/spotlight/`](./)
+- **Engine / SDK Repo**: FriendSDK v0.1.2
+- **Tech Stack**: TypeScript, React, HTML5 Canvas, Vanilla CSS (zero external UI bloat), FriendSDK WebAudio.
+
+---
+
+## Playable Demo / How to Run
+
+### Local Setup
 ```bash
 # Clone the repository
 git clone https://github.com/spokesz/friendsdk.git
 cd friendsdk
 npm ci
 
-# Start the game dev server
+# Start the game server
 npm run dev:game -- games/spotlight
 ```
 
-Then open `http://localhost:4173` in your browser.
+Then navigate to `http://localhost:4173` in your browser.
+
+> **Requirements**: A browser wallet holding a hardwired Generations NFT (Gen ≥ 1) on Robinhood mainnet (chain 4663). No real-money transaction or RF spending is required for preview.
+
+---
+
+## How do you play?
+
+- **Move**: `W`, `A`, `S`, `D` or `Arrow Keys` (or click/tap on touchscreen).
+- **Attack**: `Spacebar` (fires directional plasma bursts towards cursor/heading).
+- **Dash**: `Shift` (instant evasive roll through enemy projectiles).
+- **Combat Dilemma**: Upon defeating each boss, choose how your Friend resolves the encounter (Mercy, Extraction, or Honor) to evolve specific traits.
+- **Menu Controls**: Access **Profile**, **Roadmap**, and **Settings** from the in-world HUD.
+
+---
+
+## Costs and Rewards
+
+All economy interactions are simulated for the MVP:
+- **Consumable**: Expedition Supply (1.00 RF simulated cost).
+- **Outcomes**:
+  - Frontier Keepsake (60% chance) — 0.50 RF reward
+  - Vanguard Signal Flare (30% chance) — 1.00 RF reward
+  - Ancient Relic Shard (10% chance) — 3.00 RF reward
+- **Expected Return**: 0.90 RF per run.
+
+---
+
+## What have you tested?
+
+- **SDK Game Validation**: Passed with `node scripts/dev-game.mjs check games/spotlight`. Valid build size (874 KB, well under the 3 MB threshold).
+- **Real-Time Combat**: 60 FPS requestAnimationFrame canvas loop, collision detection against destructible obstacles, bullet ricochets, and boss AI routines verified.
+- **Responsive Controls**: Fully playable on desktop (keyboard + mouse) and mobile/touch controls.
+- **Accessibility & Settings**: Supports WebAudio mute/unmute toggle and prefers-reduced-motion settings.
+
+---
+
+## Known Limitations
+
+- Real-money on-chain contract transactions for token rewards are simulated for the Vibeathon MVP.
+- Co-op multiplayer raids are roadmapped for Phase 3.
+
+---
+
+## Credits
+
+- Built using the official [FriendSDK v0.1.2](https://github.com/spokesz/friendsdk).
+- Scenery, sprite decoders, and audio cues provided by Rare Friends FriendSDK.
+
