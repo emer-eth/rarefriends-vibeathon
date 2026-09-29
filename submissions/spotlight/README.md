@@ -50,6 +50,13 @@ A character-driven action RPG and identity progression game where your Rare Frie
 
 ## Playable Demo / How to Run
 
+### 🌐 Live Public Playable Preview (with Spoken Audio Walkthrough)
+👉 **[Launch Live Game & Audio Commentary](https://emer-eth.github.io/rarefriends-vibeathon/)**
+
+Features:
+- Includes sample Rare Friends (no wallet or funding barrier required for preview).
+- Includes top banner with an **Audio Walkthrough** covering the mechanics, design choices, and emergent trait engine.
+
 ### Local Setup
 ```bash
 # Clone the repository
