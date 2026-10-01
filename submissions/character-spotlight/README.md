@@ -12,9 +12,11 @@ A tactile retro arcade suite where your Rare Friends Generations NFT stars acros
 
 ## Demo Video & Gameplay Showcase
 
-![Character Spotlight Gameplay Demo](./demo.gif)
+https://github.com/user-attachments/assets/demo.mp4
 
-> Full HD video also available: [demo.mp4](./demo.mp4)
+![Character Spotlight Gameplay Demo](https://raw.githubusercontent.com/emer-eth/rarefriends-vibeathon/submission/character-spotlight/submissions/character-spotlight/demo.gif)
+
+> **Direct Demo Video Link:** [Download / View demo.mp4](https://raw.githubusercontent.com/emer-eth/rarefriends-vibeathon/submission/character-spotlight/submissions/character-spotlight/demo.mp4)
 
 ---
 
